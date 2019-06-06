@@ -19,10 +19,18 @@ class App extends Component {
     }
 
     this.socket.onmessage = (event) => {
-      const {type, count} = JSON.parse(event.data);
-      if(type === 'usersCount') {
-        this.setState({count});
+      const data = JSON.parse(event.data);
+      if(data.type === 'usersCount') {
+        this.setState({count: data.count});
       }
+
+      if(data.type === 'incomingMessage' || data.type === 'incomingNotification') {
+        const messages = this.state.messages.concat(data);
+        this.setState({
+          messages: messages
+        });
+      }
+
     }
 
     console.log("componentDidMount <App />");
@@ -50,13 +58,10 @@ class App extends Component {
       event.target.value = "";
 
       this.socket.send(JSON.stringify(message));
-      this.socket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        const messages = this.state.messages.concat(message);
-        this.setState({
-          messages: messages
-        });
-      }
+      // this.socket.onmessage = (event) => {
+      //   const message = JSON.parse(event.data);
+
+      // }
     }
   };
 
@@ -69,13 +74,13 @@ class App extends Component {
       }
 
       this.socket.send(JSON.stringify(notification));
-      this.socket.onmessage = (event) => {
-        const notification = JSON.parse(event.data);
-        const messages = this.state.messages.concat(notification);
-        this.setState({
-          messages: messages
-        });
-      }
+      // this.socket.onmessage = (event) => {
+      //   const notification = JSON.parse(event.data);
+      //   const messages = this.state.messages.concat(notification);
+      //   this.setState({
+      //     messages: messages
+      //   });
+      // }
 
       event.target.value = "";
       this.setState({
