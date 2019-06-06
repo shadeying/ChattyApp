@@ -11,6 +11,7 @@ class App extends Component {
       count: 0
     }
     this.socket = new WebSocket('ws://localhost:3001');
+    this.color = '';
   }
 
   componentDidMount() {
@@ -20,6 +21,11 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+
+      if(data.type === 'color') {
+        this.color = data.color;
+      }
+
       if(data.type === 'usersCount') {
         this.setState({count: data.count});
       }
@@ -36,14 +42,6 @@ class App extends Component {
     console.log("componentDidMount <App />");
     setTimeout(() => {
       console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({
-        messages: messages
-      })
     }, 3000);
   }
 
@@ -53,15 +51,12 @@ class App extends Component {
       const message = {
         type: "postMessage",
         username: this.state.currentUser.name,
+        color: this.color,
         content
       };
       event.target.value = "";
 
       this.socket.send(JSON.stringify(message));
-      // this.socket.onmessage = (event) => {
-      //   const message = JSON.parse(event.data);
-
-      // }
     }
   };
 
@@ -74,13 +69,6 @@ class App extends Component {
       }
 
       this.socket.send(JSON.stringify(notification));
-      // this.socket.onmessage = (event) => {
-      //   const notification = JSON.parse(event.data);
-      //   const messages = this.state.messages.concat(notification);
-      //   this.setState({
-      //     messages: messages
-      //   });
-      // }
 
       event.target.value = "";
       this.setState({
