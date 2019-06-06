@@ -8,6 +8,7 @@ function Message(props) {
         <span className="message-username" style={style}>{props.type === "incomingMessage" && props.username}</span>
         <span className="message-content">{props.type === "incomingMessage" && props.content}</span>
       </div>
+      <img className="message-image" src={props.image} />
       <div className="notification">
         <span className="notification-content">{props.type === "incomingNotification" && props.content}</span>
       </div>

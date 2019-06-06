@@ -31,6 +31,13 @@ class App extends Component {
       }
 
       if(data.type === 'incomingMessage' || data.type === 'incomingNotification') {
+        const text = data.content;
+        const regex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+        if(regex.exec(text)) {
+          data.image = regex.exec(text)[0];
+          data.content = text.replace(regex, '$1');
+          console.log("message: ", data.content)
+        }
         const messages = this.state.messages.concat(data);
         this.setState({
           messages: messages
