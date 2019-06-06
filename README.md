@@ -1,45 +1,26 @@
-React Boilerplate
-=====================
+# ChattyApp Project :speech_balloon:
 
-A minimal and light dev environment for ReactJS.
+ChattyApp is a real time web application which allows user to communicate with each other without having to register accounts. This app is built using React as well as Webpack and Babel.
 
-### Usage
+## Screenshots
+!["Homepage with tweet compose box"](https://github.com/shadeying/tweeter/blob/master/docs/show.png?raw=true)
+!["You can hide that annoying box!"](https://github.com/shadeying/tweeter/blob/master/docs/hide.png?raw=true)
+!["Cannot tweet when you have nothing to tweet :|"](https://github.com/shadeying/tweeter/blob/master/docs/empty-error.png?raw=true)
 
-Clone the boilerplate and create your own git repo.
+## Cool Feature :sunglasses:
+- Different colors are displayed for messages from different users
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+## Getting Started
 
-Install the dependencies and start the server.
+1. Fork this repository and the server from "ChattyServer", then clone your forks of both repositories.
+2. Install dependencies using the `npm install` command.
+3. Start the web server using the `npm start` command. The app will be served at <http://localhost:3000/>.
+4. Go to <http://localhost:3000/> in your browser.
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+## Dependencies
 
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
-
-### Dependencies
-
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+- babel
+- react
+- react-dom
+- sockjs-client
+- webpack
