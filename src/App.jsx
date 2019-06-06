@@ -19,10 +19,10 @@ class App extends Component {
     }
 
     this.socket.onmessage = (event) => {
-      this.setState(prev => ({
-        count: event.data
-      }));
-      console.log('User count:',this.state.count)
+      const {type, count} = JSON.parse(event.data);
+      if(type === 'usersCount') {
+        this.setState({count});
+      }
     }
 
     console.log("componentDidMount <App />");
