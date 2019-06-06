@@ -7,7 +7,8 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: {name: "Anonymous"},
-      messages: []
+      messages: [],
+      count: 0
     }
     this.socket = new WebSocket('ws://localhost:3001');
   }
@@ -15,6 +16,13 @@ class App extends Component {
   componentDidMount() {
     this.socket.onopen = () => {
       console.log('Connected To Server')
+    }
+
+    this.socket.onmessage = (event) => {
+      this.setState(prev => ({
+        count: event.data
+      }));
+      console.log('User count:',this.state.count)
     }
 
     console.log("componentDidMount <App />");
@@ -35,6 +43,7 @@ class App extends Component {
     const content = event.target.value;
     if(event.key === "Enter" && content.length > 0) {
       const message = {
+        type: "postMessage",
         username: this.state.currentUser.name,
         content
       };
@@ -54,6 +63,20 @@ class App extends Component {
   addUser = (event) => {
     const user = event.target.value;
     if(user.length > 0) {
+      const notification = {
+        type: "postNotification",
+        content: `${this.state.currentUser.name} has changed their name to ${user}.`
+      }
+
+      this.socket.send(JSON.stringify(notification));
+      this.socket.onmessage = (event) => {
+        const notification = JSON.parse(event.data);
+        const messages = this.state.messages.concat(notification);
+        this.setState({
+          messages: messages
+        });
+      }
+
       event.target.value = "";
       this.setState({
         currentUser: {name: user}
@@ -66,6 +89,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <span>{this.state.count} users online</span>
         </nav>
         <MessageList messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser} addMessage={this.addMessage} addUser={this.addUser}/>
