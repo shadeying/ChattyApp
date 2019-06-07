@@ -8,6 +8,7 @@ ChattyApp is a real time web application which allows user to communicate with e
 
 ## Cool Feature :sunglasses:
 - Different colors are displayed for messages from different users
+- You can paste in URls that end in png, jpg and gif and have them display fine as well
 
 ## Getting Started
 
