@@ -4,14 +4,18 @@ function Message(props) {
   const style = {color: props.color};
   return (
     <div>
-      <div className="message">
-        <span className="message-username" style={style}>{props.type === "incomingMessage" && props.username}</span>
-        <span className="message-content">{props.type === "incomingMessage" && props.content}</span>
-      </div>
+      {props.type === "incomingMessage" &&
+        <div className="message">
+          <span className="message-username" style={style}>{props.username}</span>
+          <span className="message-content">{props.content}</span>
+        </div>
+      }
       {props.image && <img className="message-image" src={props.image} />}
-      <div className="notification">
-        <span className="notification-content">{props.type === "incomingNotification" && props.content}</span>
-      </div>
+      {props.type === "incomingNotification" &&
+        <div className="notification">
+          <span className="notification-content">{props.content}</span>
+        </div>
+      }
     </div>
   );
 }

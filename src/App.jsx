@@ -36,7 +36,6 @@ class App extends Component {
         if(regex.exec(text)) {
           data.image = regex.exec(text)[0];
           data.content = text.replace(regex, '$1');
-          console.log("message: ", data.content)
         }
         const messages = this.state.messages.concat(data);
         this.setState({
@@ -61,6 +60,7 @@ class App extends Component {
         color: this.color,
         content
       };
+
       event.target.value = "";
 
       this.socket.send(JSON.stringify(message));
@@ -70,6 +70,7 @@ class App extends Component {
   addUser = (event) => {
     const user = event.target.value;
     if(user.length > 0) {
+
       const notification = {
         type: "postNotification",
         content: `${this.state.currentUser.name} has changed their name to ${user}.`
@@ -78,9 +79,11 @@ class App extends Component {
       this.socket.send(JSON.stringify(notification));
 
       event.target.value = "";
+
       this.setState({
         currentUser: {name: user}
       });
+
     }
   }
 
