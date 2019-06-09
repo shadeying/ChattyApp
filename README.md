@@ -12,9 +12,9 @@ ChattyApp is a real time web application which allows user to communicate with e
 
 ## Getting Started
 
-1. Fork this repository and the server from "ChattyServer", then clone your forks of both repositories.
-2. Install dependencies using the `npm install` command.
-3. Start the web server using the `npm start` command. The app will be served at <http://localhost:3000/>.
+1. Fork this repository and the server from <https://github.com/shadeying/ChattyServer>, then clone your forks of both repositories.
+2. Install dependencies using the `npm install` command for both projects.
+3. Start the web server and the app using the `npm start` command. The app will be served at <http://localhost:3000/>.
 4. Go to <http://localhost:3000/> in your browser.
 
 ## Dependencies
